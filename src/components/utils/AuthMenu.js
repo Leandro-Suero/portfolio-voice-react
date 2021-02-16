@@ -1,10 +1,10 @@
 import React from "react";
-import { useAuth, useAuthUpdate } from "../../AuthContext";
-import { MdAccountCircle, MdList, MdSync, MdExitToApp } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { MdAccountCircle, MdList, MdSync, MdExitToApp } from "react-icons/md";
+import { useAuth, useAuthUpdate } from "../../AuthContext";
 import setAuthorizationToken from "../../libs/utils";
 
-function Auth({ showTriggerList }) {
+function Auth() {
   const authUser = useAuth();
   const changeAuth = useAuthUpdate();
 

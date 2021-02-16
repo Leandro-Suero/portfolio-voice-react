@@ -1,10 +1,3 @@
-const triggers_list = [
-  {
-    triggers: ["cómo estás"],
-    sentence: "¿Ahora te interesa? si solo me hablas cuando necesitas algo...",
-  },
-];
-
 export const evaluateTriggers = (input, triggersList) => {
   let answer = false;
   triggersList.some(({ triggers: { triggers }, response }) => {

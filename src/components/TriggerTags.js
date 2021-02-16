@@ -1,11 +1,13 @@
 import React from "react";
-import Pill from "./Pill";
+import Pill from "./utils/Pill";
 
 function TriggerTags({ triggersArray }) {
   return (
     <div>
       {triggersArray.length > 0
-        ? triggersArray.map((trigger) => <Pill text={trigger} key={trigger} />)
+        ? React.Children.toArray(
+            triggersArray.map((trigger) => <Pill text={trigger} />)
+          )
         : "Add new words as triggers"}
     </div>
   );

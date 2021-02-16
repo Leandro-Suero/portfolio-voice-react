@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import TriggerItem from "./TriggerItem";
-import { useAuth, useAuthUpdate } from "../AuthContext";
-import BackButton from "./BackButton";
+import React from "react";
+import TriggerItem from "../TriggerItem";
+import { useAuth, useAuthUpdate } from "../../AuthContext";
+import BackButton from "../utils/BackButton";
+import FAB from "../utils/Fab";
+import NewTriggerModal from "../NewTriggerModal";
 
 function TriggersList() {
   const authUser = useAuth();
@@ -28,6 +29,8 @@ function TriggersList() {
           key={trigger.id}
         />
       ))}
+      <NewTriggerModal />
+      <FAB />
     </div>
   );
 }

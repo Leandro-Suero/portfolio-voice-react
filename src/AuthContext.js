@@ -17,14 +17,6 @@ export default function AuthProvider({ children }) {
     triggersList: [],
   });
 
-  function updateAuth({ username, user_id, triggersList }) {
-    setAuth((prevAuth) => ({
-      username,
-      user_id,
-      triggersList,
-    }));
-  }
-
   return (
     <AuthContext.Provider value={auth}>
       <AuthUpdateContext.Provider value={setAuth}>

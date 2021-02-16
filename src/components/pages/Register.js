@@ -1,49 +1,46 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useAuthUpdate } from "../../AuthContext";
 
-import BackButton from "../BackButton";
 import setAuthorizationToken from "../../libs/utils";
+import { useAuthUpdate } from "../../AuthContext";
+import BackButton from "../utils/BackButton";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const setAuthObject = useAuthUpdate();
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit", username, password);
-    try {
-      const {
-        data: { token },
-      } = await axios.post("/auth/login", { username, password });
-      console.log(token);
-      setAuthorizationToken(token);
-      var decoded = jwt_decode(token);
-      console.log("decoded", decoded.id);
-      console.log("decoded", decoded.username);
-      const {
-        data: { data },
-      } = await axios.get("/triggers/user/" + decoded.id);
-      console.log(data);
-      setAuthObject({
-        username: decoded.username,
-        user_id: decoded.id,
-        triggersList: data,
-      });
-      history.push("/");
-    } catch (err) {
-      console.error(err);
+    if (password !== password2) {
+      console.error("Passwords mismatch");
+      //TODO add message here
+      return;
     }
+
+    axios
+      .post("/auth/register", { username, password })
+      .then((res) => {
+        const token = res.data.token;
+        setAuthorizationToken(token);
+        var decoded = jwt_decode(token);
+        setAuthObject({ username: decoded.username, user_id: decoded.id });
+        history.push("/");
+      })
+      .catch((err) => console.error(err));
   };
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+  const handlePassword2Change = (e) => {
+    setPassword2(e.target.value);
   };
 
   return (
@@ -65,11 +62,18 @@ function Login() {
           id="password"
           onChange={handlePasswordChange}
         />
-        <button type="submit">Log in</button>
+        <label htmlFor="password2">Confirm Password</label>
+        <input
+          type="password"
+          name="password2"
+          id="password2"
+          onChange={handlePassword2Change}
+        />
+        <button type="submit">Register</button>
       </form>
       <hr />
-      <p>If you don't have an account yet:</p>
-      <Link to="/register">Register</Link>
+      <p>Do you already have an account?</p>
+      <Link to="/login">Log in</Link>
     </div>
   );
 }

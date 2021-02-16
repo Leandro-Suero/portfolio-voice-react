@@ -1,11 +1,24 @@
 import React from "react";
+import axios from "axios";
+
 import TriggerTags from "./TriggerTags";
 import { MdDelete } from "react-icons/md";
+import { useAuth, useAuthUpdate } from "../AuthContext";
 
 function TriggerItem({ id, triggers, response }) {
-  const deleteTrigger = (id, event) => {
-    console.log("deleted " + id);
-    //TODO do the actual deleting from context and server
+  const authUser = useAuth();
+  const updateAuthUser = useAuthUpdate();
+  const deleteTrigger = async (id) => {
+    try {
+      //delete from server
+      const res = await axios.delete("/triggers/" + id);
+      if (res.status >= 300) return;
+      //delete from UI
+      const newList = authUser.triggersList.filter((tr) => tr.id !== id);
+      updateAuthUser((prev) => ({ ...prev, triggersList: newList }));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
