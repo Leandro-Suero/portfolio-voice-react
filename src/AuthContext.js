@@ -11,15 +11,23 @@ export function useAuthUpdate() {
 }
 
 export default function AuthProvider({ children }) {
-  const [auth, setAuth] = useState("");
+  const [auth, setAuth] = useState({
+    username: "",
+    user_id: "",
+    triggersList: [],
+  });
 
-  function updateAuth(user) {
-    setAuth((prevAuth) => user);
+  function updateAuth({ username, user_id, triggersList }) {
+    setAuth((prevAuth) => ({
+      username,
+      user_id,
+      triggersList,
+    }));
   }
 
   return (
     <AuthContext.Provider value={auth}>
-      <AuthUpdateContext.Provider value={updateAuth}>
+      <AuthUpdateContext.Provider value={setAuth}>
         {children}
       </AuthUpdateContext.Provider>
     </AuthContext.Provider>

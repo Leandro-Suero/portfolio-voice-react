@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import "./index.css";
-import App from "./App";
+import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
+
+import App from "./App";
+import "./index.css";
 
 //endpoint domain for all the data requests
 axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL;
+
+//react-modal package
+Modal.setAppElement("#root");
 
 ReactDOM.render(
   <React.StrictMode>

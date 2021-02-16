@@ -4,12 +4,12 @@ import { MdAccountCircle, MdList, MdSync, MdExitToApp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import setAuthorizationToken from "../../libs/utils";
 
-function Auth() {
+function Auth({ showTriggerList }) {
   const authUser = useAuth();
   const changeAuth = useAuthUpdate();
 
   const logout = () => {
-    changeAuth("");
+    changeAuth({ username: "", user_id: "", triggersList: [] });
     setAuthorizationToken(false);
     console.log("logout");
   };
@@ -19,12 +19,12 @@ function Auth() {
 
   return (
     <div>
-      {authUser ? (
+      {authUser.username !== "" ? (
         <div>
           <img
             src={
               "https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&rounded=true&name=" +
-              authUser
+              authUser.username
             }
             style={{
               width: "3rem",
