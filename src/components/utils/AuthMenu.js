@@ -4,7 +4,7 @@ import { MdAccountCircle, MdList, MdSync, MdExitToApp, MdClose } from "react-ico
 import styled, {keyframes} from "styled-components";
 
 import { useAuth, useAuthUpdate } from "../../AuthContext";
-import setAuthorizationToken from "../../libs/utils";
+import {setAuthorizationToken} from "../../libs/utils";
 import FixedDiv from "../styled/FixedDiv";
 
 const FadeIn = keyframes`
@@ -94,9 +94,6 @@ function Auth() {
                     <Link to="/triggers">
                       <MdList /> <span>Triggers</span>
                     </Link>
-                  </Li>
-                  <Li onClick={() => sync()}>
-                    <MdSync /> <span>Sync</span>
                   </Li>
                   <Li onClick={() => logout()}>
                     <MdExitToApp /> <span>Log out</span>

@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import setAuthorizationToken from "../../libs/utils";
+import { setAuthorizationToken } from "../../libs/utils";
 import { useAuthUpdate } from "../../AuthContext";
 import BackButton from "../utils/BackButton";
 import Container from "../styled/Container";

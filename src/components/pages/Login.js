@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { useAuthUpdate } from "../../AuthContext";
 
-import setAuthorizationToken from "../../libs/utils";
+import { setAuthorizationToken } from "../../libs/utils";
 import BackButton from "../utils/BackButton";
 import Container from "../styled/Container";
 import Column from "../styled/Column";
