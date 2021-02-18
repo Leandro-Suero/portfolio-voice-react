@@ -6,6 +6,13 @@ import jwt_decode from "jwt-decode";
 import setAuthorizationToken from "../../libs/utils";
 import { useAuthUpdate } from "../../AuthContext";
 import BackButton from "../utils/BackButton";
+import Container from "../styled/Container";
+import Column from "../styled/Column";
+import P from "../styled/P";
+import Form from "../styled/Form";
+import Button from "../styled/Button";
+import Input from "../styled/Input";
+import StyledLink from "../styled/StyledLink";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -44,37 +51,45 @@ function Login() {
   };
 
   return (
-    <div>
+    <>
       <BackButton />
-      <p>Log in to be able to create and sync your own triggers.</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          onChange={handleUsernameChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={handlePasswordChange}
-        />
-        <label htmlFor="password2">Confirm Password</label>
-        <input
-          type="password"
-          name="password2"
-          id="password2"
-          onChange={handlePassword2Change}
-        />
-        <button type="submit">Register</button>
-      </form>
-      <hr />
-      <p>Do you already have an account?</p>
-      <Link to="/login">Log in</Link>
-    </div>
+      <Container>
+        <Column>
+          <P>Log in to be able to create and sync your own triggers.</P>
+          <Form onSubmit={handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <Input
+              type="text"
+              name="username"
+              id="username"
+              onChange={handleUsernameChange}
+              autoFocus
+            />
+            <label htmlFor="password">Password</label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              onChange={handlePasswordChange}
+            />
+            <label htmlFor="password2">Confirm Password</label>
+            <Input
+              type="password"
+              name="password2"
+              id="password2"
+              onChange={handlePassword2Change}
+            />
+            <Button type="submit" mt="0.5rem">
+              Register
+            </Button>
+          </Form>
+          <div>
+            <P>Do you already have an account?</P>
+            <StyledLink to="/login">Log in</StyledLink>
+          </div>
+        </Column>
+      </Container>
+    </>
   );
 }
 

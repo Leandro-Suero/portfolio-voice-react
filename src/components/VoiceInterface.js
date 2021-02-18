@@ -4,6 +4,11 @@ import { HiMicrophone } from "react-icons/hi";
 
 import * as VoiceAssistance from "../libs/VoiceAssistance";
 import { useAuth } from "../AuthContext";
+import Container from "../components/styled/Container";
+import Column from "../components/styled/Column";
+import P from "../components/styled/P";
+import Button from "../components/styled/Button";
+import MainIcon from "../components/styled/MainIcon";
 
 function VoiceInterface() {
   const [command, setCommand] = useState("");
@@ -22,9 +27,7 @@ function VoiceInterface() {
 
   recognition.onresult = (event) => {
     setProcessing(false);
-    console.log(event);
     const current = event.resultIndex;
-
     const transcript = event.results[current][0].transcript;
     const confidence = event.results[current][0].confidence;
     setCommand(transcript);
@@ -49,24 +52,26 @@ function VoiceInterface() {
   };
 
   return (
-    <div className="App">
-      <section className="App-header">
-        <a className="App-link" onClick={handleVoice}>
+    <Container>
+      <Column>
+        <a onClick={handleVoice}>
           {processing ? (
-            <HiMicrophone style={{ fontSize: "9rem" }} />
+            <MainIcon active>
+              <HiMicrophone />
+            </MainIcon>
           ) : (
-            <MdTouchApp style={{ fontSize: "9rem" }} />
+            <MainIcon>
+              <MdTouchApp />
+            </MainIcon>
           )}
-          <button disabled={processing} style={{ marginTop: "1rem" }}>
+          <Button disabled={processing} mt="1rem">
             {processing ? "Listening..." : "Touch HERE to Speak"}
-          </button>
+          </Button>
         </a>
-        <p className="command">
-          {command ? command : "touch to speak a new command"}
-        </p>
-        <p>{response ? response : null}</p>
-      </section>
-    </div>
+        <P italic>{command ? command : "touch to speak a new command"}</P>
+        <P>{response ? response : "..."}</P>
+      </Column>
+    </Container>
   );
 }
 

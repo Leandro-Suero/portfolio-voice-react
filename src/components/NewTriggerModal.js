@@ -2,9 +2,53 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import { MdClose, MdAdd } from "react-icons/md";
+import styled from "styled-components";
+
 import { useAuth, useAuthUpdate } from "../AuthContext";
 import { useUiState, useUiStateUpdate } from "../UiStateContext";
 import TriggerTags from "./TriggerTags";
+import Column from "../components/styled/Column";
+import FixedDiv from "../components/styled/FixedDiv";
+import Input from "../components/styled/Input";
+import Form from "../components/styled/Form";
+import Button from "../components/styled/Button";
+
+const ColumnModal = styled(Column)`
+  gap: 1rem;
+  min-height: 100%;
+`;
+const CloseModal = styled(FixedDiv)`
+  top: 1.5rem;
+`;
+const SmallP = styled.p`
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+`;
+const Header = styled.h2`
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+`;
+const Hr = styled.hr`
+  margin: 1.5rem 0;
+`;
+const InputWithAction = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  gap: 0.5rem;
+  flex-basis: auto;
+  & > div {
+    font-size: 2rem;
+    background-color: ${(props) => props.theme.color.accent};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -0.2rem;
+  }
+`;
 
 function NewTriggerModal() {
   const [newTriggerArray, setNewTriggerArray] = useState([]);
@@ -46,48 +90,50 @@ function NewTriggerModal() {
   };
 
   return (
-    <div>
-      <Modal
-        isOpen={getUiState.modalIsOpen}
-        onRequestClose={() =>
-          updateUiState((prevState) => ({ ...prevState, modalIsOpen: false }))
-        }
-        shouldCloseOnOverlayClick={false}
-        contentLabel="Add new trigger"
-      >
-        <div
+    <Modal
+      isOpen={getUiState.modalIsOpen}
+      onRequestClose={() =>
+        updateUiState((prevState) => ({ ...prevState, modalIsOpen: false }))
+      }
+      shouldCloseOnOverlayClick={false}
+      contentLabel="Add new trigger"
+    >
+      <ColumnModal>
+        <CloseModal
           onClick={(e) =>
             updateUiState((prevState) => ({ ...prevState, modalIsOpen: false }))
           }
         >
           <MdClose />
-        </div>
-        <h2>Add new trigger</h2>
+        </CloseModal>
+        <Header>Add new trigger</Header>
         <p>
           If your spoken phrase matchs ALL triggers then the response will be
           read out loud.
         </p>
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <label htmlFor="new_trigger">Add another word trigger </label>
-          <input
-            type="text"
-            name="new_trigger"
-            id="new_trigger"
-            ref={newTriggerInput}
-          />
-          <span onClick={(e) => addTriggerToArray()}>
-            <MdAdd />
-          </span>
-          <p>List of trigger words: </p>
+          <InputWithAction>
+            <Input
+              type="text"
+              name="new_trigger"
+              id="new_trigger"
+              ref={newTriggerInput}
+              autoFocus
+            />
+            <div onClick={(e) => addTriggerToArray()}>
+              <MdAdd />
+            </div>
+          </InputWithAction>
+          <SmallP>List of trigger words: </SmallP>
           <TriggerTags triggersArray={newTriggerArray} />
-          <br />
+          <Hr />
           <label htmlFor="response">Response to read outloud</label>
-          <input type="text" name="response" id="response" ref={newResponse} />
-          <br />
-          <button type="submit">Save Trigger</button>
-        </form>
-      </Modal>
-    </div>
+          <Input type="text" name="response" id="response" ref={newResponse} />
+          <Button type="submit">Save Trigger</Button>
+        </Form>
+      </ColumnModal>
+    </Modal>
   );
 }
 

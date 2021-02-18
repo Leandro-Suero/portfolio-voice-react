@@ -1,17 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MdAccountCircle, MdList, MdSync, MdExitToApp } from "react-icons/md";
+import { MdAccountCircle, MdList, MdSync, MdExitToApp, MdClose } from "react-icons/md";
+import styled, {keyframes} from "styled-components";
+
 import { useAuth, useAuthUpdate } from "../../AuthContext";
 import setAuthorizationToken from "../../libs/utils";
+import FixedDiv from "../styled/FixedDiv";
+
+const FadeIn = keyframes`
+  0%{
+    opacity: 0
+  }
+  100%{
+    opacity: 1
+  }
+`;
+
+const Nav = styled.nav`
+  position: fixed;
+  top: 5rem;
+  right: .5rem;
+  animation: .4s ${FadeIn} ease-in;
+`;
+const Ul = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 1rem 2rem;
+  background-color:${(props) => props.theme.color.backgroundLight};;
+  z-index: 100;
+`;
+const Li = styled.li`
+  font-size: 1.25rem;
+  vertical-align: middle;
+  display: inline-block;
+  color: ${(props) => props.theme.color.background};
+  & > a {
+    color: ${(props) => props.theme.color.background};
+    text-decoration: none;
+  }
+  & > a svg, & > svg {
+    position: relative;
+    top: 0.2rem;
+  }
+`;
+const AuthDiv = styled(FixedDiv)`
+  top: 1.5rem;
+  background-color: ${(props) => props.theme.color.backgroundLight};
+  color: ${(props) => props.theme.color.background};
+`;
+const StyledImg = styled.img`
+  width: 2.5rem;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  margin: 0;
+  border-radius: 50%;
+  background-color: ${(props) => props.theme.color.accent};
+  color: ${(props) => props.theme.color.primary};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.75);
+`;
 
 function Auth() {
+  const [showMenu, setShowMenu] = useState(false);
   const authUser = useAuth();
   const changeAuth = useAuthUpdate();
 
   const logout = () => {
     changeAuth({ username: "", user_id: "", triggersList: [] });
     setAuthorizationToken(false);
-    console.log("logout");
   };
   const sync = () => {
     console.log("sync");
@@ -21,44 +82,43 @@ function Auth() {
     <div>
       {authUser.username !== "" ? (
         <div>
-          <img
-            src={
-              "https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&rounded=true&name=" +
-              authUser.username
-            }
-            style={{
-              width: "3rem",
-              position: "fixed",
-              top: "1rem",
-              right: "1rem",
-            }}
-          />
-          <nav className="authNav">
-            <ul>
-              <li>
-                <Link to="/triggers">
-                  <MdList /> <span>Triggers</span>
-                </Link>
-              </li>
-              <li onClick={() => sync()}>
-                <MdSync /> <span>Sync</span>{" "}
-              </li>
-              <li onClick={() => logout()}>
-                <MdExitToApp /> <span>Log out</span>{" "}
-              </li>
-            </ul>
-          </nav>
+          <div onClick={() => { setShowMenu(prev => !prev) }}>
+            {showMenu ? 
+            <>
+              <AuthDiv>
+                <MdClose />
+              </AuthDiv> 
+              <Nav>
+                <Ul>
+                  <Li>
+                    <Link to="/triggers">
+                      <MdList /> <span>Triggers</span>
+                    </Link>
+                  </Li>
+                  <Li onClick={() => sync()}>
+                    <MdSync /> <span>Sync</span>
+                  </Li>
+                  <Li onClick={() => logout()}>
+                    <MdExitToApp /> <span>Log out</span>
+                  </Li>
+                </Ul>
+              </Nav>
+            </>
+            :  
+            <StyledImg
+              src={
+                "https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&rounded=true&name=" +
+                authUser.username
+              }
+            />
+          }
+          </div>
         </div>
       ) : (
         <Link to="/login">
-          <MdAccountCircle
-            style={{
-              fontSize: "3rem",
-              position: "fixed",
-              top: "1rem",
-              right: "1rem",
-            }}
-          />
+          <AuthDiv>
+            <MdAccountCircle />
+          </AuthDiv>
         </Link>
       )}
     </div>

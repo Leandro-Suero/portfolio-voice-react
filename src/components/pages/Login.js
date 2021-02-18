@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuthUpdate } from "../../AuthContext";
 
 import setAuthorizationToken from "../../libs/utils";
 import BackButton from "../utils/BackButton";
+import Container from "../styled/Container";
+import Column from "../styled/Column";
+import P from "../styled/P";
+import Form from "../styled/Form";
+import Button from "../styled/Button";
+import Input from "../styled/Input";
+import StyledLink from "../styled/StyledLink";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -42,30 +49,38 @@ function Login() {
   };
 
   return (
-    <div>
+    <>
       <BackButton />
-      <p>Log in to be able to create and sync your own triggers.</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          onChange={handleUsernameChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={handlePasswordChange}
-        />
-        <button type="submit">Log in</button>
-      </form>
-      <hr />
-      <p>If you don't have an account yet:</p>
-      <Link to="/register">Register</Link>
-    </div>
+      <Container>
+        <Column>
+          <P>Log in to be able to create and sync your own triggers.</P>
+          <Form onSubmit={handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <Input
+              type="text"
+              name="username"
+              id="username"
+              onChange={handleUsernameChange}
+              autoFocus
+            />
+            <label htmlFor="password">Password</label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              onChange={handlePasswordChange}
+            />
+            <Button type="submit" mt="0.5rem">
+              Log in
+            </Button>
+          </Form>
+          <div>
+            <P>If you don't have an account yet:</P>
+            <StyledLink to="/register">Register</StyledLink>
+          </div>
+        </Column>
+      </Container>
+    </>
   );
 }
 

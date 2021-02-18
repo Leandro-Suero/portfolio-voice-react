@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import reportWebVitals from "./reportWebVitals";
 
 import App from "./App";
-import "./index.css";
+// import "./index.css";
 
 //endpoint domain for all the data requests
 axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL;

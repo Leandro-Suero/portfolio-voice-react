@@ -1,8 +1,18 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import { MdPlaylistAdd } from "react-icons/md";
+
 import { useAuth } from "../../AuthContext";
 import { useUiStateUpdate } from "../../UiStateContext";
+import FixedDiv from "../styled/FixedDiv";
+
+const FabDiv = styled(FixedDiv)`
+  bottom: 1.5rem;
+  background-color: ${(props) => props.theme.color.accent};
+  color: ${(props) => props.theme.color.background};
+  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.75);
+`;
 
 function FAB() {
   const getAuthUser = useAuth();
@@ -18,16 +28,9 @@ function FAB() {
   };
 
   return (
-    <div onClick={(e) => addNewTrigger()}>
-      <MdPlaylistAdd
-        style={{
-          fontSize: "3rem",
-          position: "fixed",
-          bottom: "1rem",
-          right: "1rem",
-        }}
-      />
-    </div>
+    <FabDiv onClick={(e) => addNewTrigger()}>
+      <MdPlaylistAdd />
+    </FabDiv>
   );
 }
 
