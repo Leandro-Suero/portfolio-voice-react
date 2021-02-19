@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 import TriggerTags from "./TriggerTags";
 import { MdDelete } from "react-icons/md";
@@ -41,8 +42,18 @@ function TriggerItem({ id, triggers, response }) {
       //delete from UI
       const newList = authUser.triggersList.filter((tr) => tr.id !== id);
       updateAuthUser((prev) => ({ ...prev, triggersList: newList }));
+      toast.success("Trigger deleted sucessfully!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (err) {
       console.error(err);
+      if (err.response?.status > 399) {
+        toast.error(err.response.data?.message ?? "There was an error", {
+          position: "top-center",
+          autoClose: 10000,
+        });
+      }
     }
   };
 
