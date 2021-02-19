@@ -3,7 +3,9 @@ import axios from "axios";
 import Modal from "react-modal";
 import { MdClose, MdAdd } from "react-icons/md";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
+import { setAuthorizationToken } from "../libs/utils";
 import { useAuth, useAuthUpdate } from "../AuthContext";
 import { useUiState, useUiStateUpdate } from "../UiStateContext";
 import TriggerTags from "./TriggerTags";
@@ -66,8 +68,26 @@ function NewTriggerModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (newTriggerArray.length === 0 || e.target.response.value === "") return;
-    //TODO add messages
+    if (newTriggerArray.length === 0) {
+      toast.error(
+        'Generate triggers by filling the word trigger input and then press the "+" button.',
+        {
+          position: "top-center",
+          autoClose: 10000,
+        }
+      );
+      return;
+    }
+    if (e.target.response.value === "") {
+      toast.error(
+        "Please enter a response to be given when all the triggers are found.",
+        {
+          position: "top-center",
+          autoClose: 10000,
+        }
+      );
+      return;
+    }
     const data = {
       triggers: { triggers: newTriggerArray },
       response: e.target.response.value,
@@ -84,8 +104,21 @@ function NewTriggerModal() {
           triggersList: [...prevAuth.triggersList, res.data.data],
         };
       });
+      toast.success("Trigger created successfully!", {
+        position: "top-center",
+        autoClose: 5000,
+      });
     } catch (err) {
       console.error(err);
+      if (err.response && err.response.status === 401) {
+        updateAuthUser({ username: "", user_id: "", triggersList: [] });
+        setAuthorizationToken(false);
+        updateUiState((prevState) => ({ ...prevState, modalIsOpen: false }));
+        toast.error("Your authorization has expired, please login again.", {
+          position: "top-center",
+          autoClose: 10000,
+        });
+      }
     }
   };
 

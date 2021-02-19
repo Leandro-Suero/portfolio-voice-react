@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { toast } from "react-toastify";
 
 import { setAuthorizationToken } from "../../libs/utils";
 import { useAuthUpdate } from "../../AuthContext";
@@ -21,24 +22,47 @@ function Login() {
   const setAuthObject = useAuthUpdate();
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("submit");
+    if (username === "" || password === "" || password2 === "") {
+      toast.error("Please complete the username and passwords fields.", {
+        position: "top-center",
+        autoClose: 10000,
+      });
+      return;
+    }
     if (password !== password2) {
       console.error("Passwords mismatch");
-      //TODO add message here
+      toast.error("Passwords must be the exact same, please correct them.", {
+        position: "top-center",
+        autoClose: 10000,
+      });
       return;
     }
 
-    axios
+    await axios
       .post("/auth/register", { username, password })
       .then((res) => {
         const token = res.data.token;
         setAuthorizationToken(token);
         var decoded = jwt_decode(token);
         setAuthObject({ username: decoded.username, user_id: decoded.id });
+        toast.success("Registration completed!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
         history.push("/");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        if (err.response && err.response.status > 399) {
+          toast.error(err.response.data.message, {
+            position: "top-center",
+            autoClose: 10000,
+          });
+        }
+      });
   };
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);

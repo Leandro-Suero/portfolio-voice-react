@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MdAccountCircle, MdList, MdSync, MdExitToApp, MdClose } from "react-icons/md";
+import { MdAccountCircle, MdList, MdExitToApp, MdClose } from "react-icons/md";
 import styled, {keyframes} from "styled-components";
+import { toast } from "react-toastify";
 
 import { useAuth, useAuthUpdate } from "../../AuthContext";
 import {setAuthorizationToken} from "../../libs/utils";
@@ -73,9 +74,10 @@ function Auth() {
   const logout = () => {
     changeAuth({ username: "", user_id: "", triggersList: [] });
     setAuthorizationToken(false);
-  };
-  const sync = () => {
-    console.log("sync");
+    toast.success("Logged out!", {
+      position: "top-center",
+      autoClose: 3000,
+    });
   };
 
   return (

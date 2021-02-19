@@ -3,6 +3,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { useAuthUpdate } from "../../AuthContext";
+import { toast } from "react-toastify";
 
 import { setAuthorizationToken } from "../../libs/utils";
 import BackButton from "../utils/BackButton";
@@ -22,6 +23,13 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (username === "" || password === "") {
+      toast.error("Please complete the username and password fields.", {
+        position: "top-center",
+        autoClose: 10000,
+      });
+      return;
+    }
     try {
       const {
         data: { token },
@@ -36,9 +44,19 @@ function Login() {
         user_id: decoded.id,
         triggersList: data,
       });
+      toast.success("Logged in!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       history.push("/");
     } catch (err) {
       console.error(err);
+      if (err.response && err.response.status > 399) {
+        toast.error(err.response.data.message, {
+          position: "top-center",
+          autoClose: 10000,
+        });
+      }
     }
   };
   const handleUsernameChange = (e) => {

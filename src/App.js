@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-// import "./App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
@@ -11,6 +12,8 @@ import AuthProvider from "./AuthContext";
 import UiStateProvider from "./UiStateContext";
 import GlobalStyle from "./theme/globalStyles";
 import theme from "./theme";
+
+toast.configure();
 
 function App() {
   return (
