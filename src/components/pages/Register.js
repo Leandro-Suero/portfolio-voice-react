@@ -15,7 +15,7 @@ import Button from "../styled/Button";
 import Input from "../styled/Input";
 import StyledLink from "../styled/StyledLink";
 
-function Login() {
+function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -47,7 +47,11 @@ function Login() {
         const token = res.data.token;
         setAuthorizationToken(token);
         var decoded = jwt_decode(token);
-        setAuthObject({ username: decoded.username, user_id: decoded.id });
+        setAuthObject({
+          username: decoded.username,
+          user_id: decoded.id,
+          triggersList: [],
+        });
         toast.success("Registration completed!", {
           position: "top-center",
           autoClose: 3000,
@@ -117,4 +121,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
