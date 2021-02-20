@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdAccountCircle, MdList, MdExitToApp, MdClose } from "react-icons/md";
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { useAuth, useAuthUpdate } from "../../AuthContext";
-import {setAuthorizationToken} from "../../libs/utils";
+import { setAuthorizationToken } from "../../libs/utils";
 import FixedDiv from "../styled/FixedDiv";
 
 const FadeIn = keyframes`
@@ -20,8 +21,8 @@ const FadeIn = keyframes`
 const Nav = styled.nav`
   position: fixed;
   top: 5rem;
-  right: .5rem;
-  animation: .4s ${FadeIn} ease-in;
+  right: 0.5rem;
+  animation: 0.4s ${FadeIn} ease-in;
 `;
 const Ul = styled.ul`
   display: flex;
@@ -29,7 +30,7 @@ const Ul = styled.ul`
   gap: 1.5rem;
   list-style: none;
   padding: 1rem 2rem;
-  background-color:${(props) => props.theme.color.backgroundLight};;
+  background-color: ${(props) => props.theme.color.backgroundLight};
   z-index: 100;
 `;
 const Li = styled.li`
@@ -41,7 +42,8 @@ const Li = styled.li`
     color: ${(props) => props.theme.color.background};
     text-decoration: none;
   }
-  & > a svg, & > svg {
+  & > a svg,
+  & > svg {
     position: relative;
     top: 0.2rem;
   }
@@ -70,47 +72,72 @@ function Auth() {
   const [showMenu, setShowMenu] = useState(false);
   const authUser = useAuth();
   const changeAuth = useAuthUpdate();
+  const intl = useIntl();
 
   const logout = () => {
     changeAuth({ username: "", user_id: "", triggersList: [] });
     setAuthorizationToken(false);
-    toast.success("Logged out!", {
-      position: "top-center",
-      autoClose: 3000,
-    });
+    toast.success(
+      intl.formatMessage({
+        id: "menu.toast.completed",
+        defaultMessage: "Logged out!",
+      }),
+      {
+        position: "top-center",
+        autoClose: 3000,
+      }
+    );
   };
 
   return (
     <div>
       {authUser.username !== "" ? (
         <div>
-          <div onClick={() => { setShowMenu(prev => !prev) }}>
-            {showMenu ? 
-            <>
-              <AuthDiv>
-                <MdClose />
-              </AuthDiv> 
-              <Nav>
-                <Ul>
-                  <Li>
-                    <Link to="/triggers">
-                      <MdList /> <span>Triggers</span>
-                    </Link>
-                  </Li>
-                  <Li onClick={() => logout()}>
-                    <MdExitToApp /> <span>Log out</span>
-                  </Li>
-                </Ul>
-              </Nav>
-            </>
-            :  
-            <StyledImg
-              src={
-                "https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&rounded=true&name=" +
-                authUser.username
-              }
-            />
-          }
+          <div
+            onClick={() => {
+              setShowMenu((prev) => !prev);
+            }}
+          >
+            {showMenu ? (
+              <>
+                <AuthDiv>
+                  <MdClose />
+                </AuthDiv>
+                <Nav>
+                  <Ul>
+                    <Li>
+                      <Link to="/triggers">
+                        <MdList />
+                        <span>
+                          {" "}
+                          <FormattedMessage
+                            id="menu.triggers"
+                            defaultMessage="Triggers"
+                          />
+                        </span>
+                      </Link>
+                    </Li>
+                    <Li onClick={() => logout()}>
+                      <MdExitToApp />
+                      <span>
+                        {" "}
+                        <FormattedMessage
+                          id="menu.logout"
+                          defaultMessage="Log out"
+                        />
+                      </span>
+                    </Li>
+                  </Ul>
+                </Nav>
+              </>
+            ) : (
+              <StyledImg
+                src={
+                  "https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&rounded=true&name=" +
+                  authUser.username
+                }
+              />
+            )}
           </div>
         </div>
       ) : (

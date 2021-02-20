@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import { useIntl } from "react-intl";
 
 import TriggerTags from "./TriggerTags";
 import { MdDelete } from "react-icons/md";
@@ -34,6 +35,8 @@ const MdDeleteRed = styled(MdDelete)`
 function TriggerItem({ id, triggers, response }) {
   const authUser = useAuth();
   const updateAuthUser = useAuthUpdate();
+  const intl = useIntl();
+
   const deleteTrigger = async (id) => {
     try {
       //delete from server
@@ -42,17 +45,30 @@ function TriggerItem({ id, triggers, response }) {
       //delete from UI
       const newList = authUser.triggersList.filter((tr) => tr.id !== id);
       updateAuthUser((prev) => ({ ...prev, triggersList: newList }));
-      toast.success("Trigger deleted sucessfully!", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      toast.success(
+        intl.formatMessage({
+          id: "triggeritem.toast.deleted",
+          defaultMessage: "Trigger deleted sucessfully!",
+        }),
+        {
+          position: "top-center",
+          autoClose: 3000,
+        }
+      );
     } catch (err) {
       console.error(err);
       if (err.response?.status > 399) {
-        toast.error(err.response.data?.message ?? "There was an error", {
-          position: "top-center",
-          autoClose: 10000,
-        });
+        toast.error(
+          err.response.data?.message ??
+            intl.formatMessage({
+              id: "triggeritem.toast.genericerror",
+              defaultMessage: "There was an error",
+            }),
+          {
+            position: "top-center",
+            autoClose: 10000,
+          }
+        );
       }
     }
   };
@@ -66,8 +82,12 @@ function TriggerItem({ id, triggers, response }) {
       <CardAction
         data-id={id}
         onClick={(e) =>
-          window.confirm("Are you sure you wish to delete this trigger?") &&
-          deleteTrigger(id)
+          window.confirm(
+            intl.formatMessage({
+              id: "triggeritem.toast.confirm",
+              defaultMessage: "Are you sure you wish to delete this trigger?",
+            })
+          ) && deleteTrigger(id)
         }
       >
         <MdDeleteRed />

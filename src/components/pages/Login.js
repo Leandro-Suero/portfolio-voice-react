@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { useAuthUpdate } from "../../AuthContext";
 import { toast } from "react-toastify";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { setAuthorizationToken } from "../../libs/utils";
 import BackButton from "../utils/BackButton";
@@ -20,14 +21,21 @@ function Login() {
   const [password, setPassword] = useState("");
   const setAuthObject = useAuthUpdate();
   const history = useHistory();
+  const intl = useIntl();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (username === "" || password === "") {
-      toast.error("Please complete the username and password fields.", {
-        position: "top-center",
-        autoClose: 10000,
-      });
+      toast.error(
+        intl.formatMessage({
+          id: "login.toast.fill",
+          defaultMessage: "Please complete the username and password fields.",
+        }),
+        {
+          position: "top-center",
+          autoClose: 10000,
+        }
+      );
       return;
     }
     try {
@@ -44,10 +52,16 @@ function Login() {
         user_id: decoded.id,
         triggersList: data,
       });
-      toast.success("Logged in!", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      toast.success(
+        intl.formatMessage({
+          id: "login.toast.success",
+          defaultMessage: "Logged in!",
+        }),
+        {
+          position: "top-center",
+          autoClose: 3000,
+        }
+      );
       history.push("/");
     } catch (err) {
       console.error(err);
@@ -71,9 +85,20 @@ function Login() {
       <BackButton />
       <Container>
         <Column>
-          <P>Log in to be able to create and sync your own triggers.</P>
+          <P>
+            <FormattedMessage
+              id="login.welcome"
+              defaultMessage="Log in to be able to create and sync your own triggers."
+            />
+          </P>
+
           <Form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">
+              <FormattedMessage
+                id="login.label.username"
+                defaultMessage="Username"
+              />
+            </label>
             <Input
               type="text"
               name="username"
@@ -81,7 +106,12 @@ function Login() {
               onChange={handleUsernameChange}
               autoFocus
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              <FormattedMessage
+                id="login.label.password"
+                defaultMessage="Password"
+              />
+            </label>
             <Input
               type="password"
               name="password"
@@ -89,12 +119,25 @@ function Login() {
               onChange={handlePasswordChange}
             />
             <Button type="submit" mt="0.5rem">
-              Log in
+              <FormattedMessage
+                id="login.label.submit"
+                defaultMessage="Log in"
+              />
             </Button>
           </Form>
           <div>
-            <P>If you don't have an account yet:</P>
-            <StyledLink to="/register">Register</StyledLink>
+            <P>
+              <FormattedMessage
+                id="login.noaccount"
+                defaultMessage="If you don't have an account yet:"
+              />
+            </P>
+            <StyledLink to="/register">
+              <FormattedMessage
+                id="login.label.register"
+                defaultMessage="Register"
+              />
+            </StyledLink>
           </div>
         </Column>
       </Container>

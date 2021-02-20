@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { toast } from "react-toastify";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { setAuthorizationToken } from "../../libs/utils";
 import { useAuthUpdate } from "../../AuthContext";
@@ -21,23 +22,37 @@ function Register() {
   const [password2, setPassword2] = useState("");
   const setAuthObject = useAuthUpdate();
   const history = useHistory();
+  const intl = useIntl();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("submit");
     if (username === "" || password === "" || password2 === "") {
-      toast.error("Please complete the username and passwords fields.", {
-        position: "top-center",
-        autoClose: 10000,
-      });
+      toast.error(
+        intl.formatMessage({
+          id: "register.toast.fill",
+          defaultMessage: "Please complete the username and passwords fields.",
+        }),
+        {
+          position: "top-center",
+          autoClose: 10000,
+        }
+      );
       return;
     }
     if (password !== password2) {
       console.error("Passwords mismatch");
-      toast.error("Passwords must be the exact same, please correct them.", {
-        position: "top-center",
-        autoClose: 10000,
-      });
+      toast.error(
+        intl.formatMessage({
+          id: "register.toast.pwdmismatch",
+          defaultMessage:
+            "Passwords must be the exact same, please correct them.",
+        }),
+        {
+          position: "top-center",
+          autoClose: 10000,
+        }
+      );
       return;
     }
 
@@ -52,10 +67,16 @@ function Register() {
           user_id: decoded.id,
           triggersList: [],
         });
-        toast.success("Registration completed!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
+        toast.success(
+          intl.formatMessage({
+            id: "register.toast.completed",
+            defaultMessage: "Registration completed!",
+          }),
+          {
+            position: "top-center",
+            autoClose: 3000,
+          }
+        );
         history.push("/");
       })
       .catch((err) => {
@@ -83,9 +104,19 @@ function Register() {
       <BackButton />
       <Container>
         <Column>
-          <P>Log in to be able to create and sync your own triggers.</P>
+          <P>
+            <FormattedMessage
+              id="register.welcome"
+              defaultMessage="Create an account to generate and sync your own triggers."
+            />
+          </P>
           <Form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">
+              <FormattedMessage
+                id="register.label.username"
+                defaultMessage="Username"
+              />
+            </label>
             <Input
               type="text"
               name="username"
@@ -93,14 +124,24 @@ function Register() {
               onChange={handleUsernameChange}
               autoFocus
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              <FormattedMessage
+                id="register.label.password"
+                defaultMessage="Password"
+              />
+            </label>
             <Input
               type="password"
               name="password"
               id="password"
               onChange={handlePasswordChange}
             />
-            <label htmlFor="password2">Confirm Password</label>
+            <label htmlFor="password2">
+              <FormattedMessage
+                id="register.label.password2"
+                defaultMessage="Password"
+              />
+            </label>
             <Input
               type="password"
               name="password2"
@@ -108,12 +149,25 @@ function Register() {
               onChange={handlePassword2Change}
             />
             <Button type="submit" mt="0.5rem">
-              Register
+              <FormattedMessage
+                id="register.label.submit"
+                defaultMessage="Register"
+              />
             </Button>
           </Form>
           <div>
-            <P>Do you already have an account?</P>
-            <StyledLink to="/login">Log in</StyledLink>
+            <P>
+              <FormattedMessage
+                id="login.haveaccount"
+                defaultMessage="Do you already have an account?"
+              />
+            </P>
+            <StyledLink to="/login">
+              <FormattedMessage
+                id="register.label.login"
+                defaultMessage="Log in"
+              />
+            </StyledLink>
           </div>
         </Column>
       </Container>

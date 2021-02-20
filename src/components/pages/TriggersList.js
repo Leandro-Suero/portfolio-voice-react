@@ -5,6 +5,7 @@ import BackButton from "../utils/BackButton";
 import FAB from "../utils/Fab";
 import NewTriggerModal from "../NewTriggerModal";
 import styled from "styled-components";
+import { FormattedMessage } from "react-intl";
 
 import P from "../styled/P";
 import Container from "../styled/Container";
@@ -24,8 +25,11 @@ function TriggersList() {
         <Column>
           <BackButton />
           <P>
-            There isn't any personalized trigger yet. Go ahead and create one,
-            have fun!
+            <FormattedMessage
+              id="triggerlist.empty"
+              defaultMessage="There isn't any personalized trigger yet. Go ahead and create one,
+              have fun!"
+            />
           </P>
         </Column>
       </Container>

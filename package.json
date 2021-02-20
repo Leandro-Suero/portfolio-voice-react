@@ -11,6 +11,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
+    "react-intl": "^5.12.3",
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "extract-messages-unix": "NODE_ENV=production babel ./src  --out-file /dev/null",
+    "extract-messages": "set NODE_ENV=production&& babel ./src >NUL"
   },
   "eslintConfig": {
     "extends": [
@@ -41,5 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

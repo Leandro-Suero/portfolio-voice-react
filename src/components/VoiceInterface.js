@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdTouchApp } from "react-icons/md";
 import { HiMicrophone } from "react-icons/hi";
+import { useIntl } from "react-intl";
 
 import * as VoiceAssistance from "../libs/VoiceAssistance";
 import { useAuth } from "../AuthContext";
@@ -15,6 +16,7 @@ function VoiceInterface() {
   const [response, setResponse] = useState("");
   const [processing, setProcessing] = useState(false);
   const getAuthUser = useAuth();
+  const intl = useIntl();
 
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -65,10 +67,25 @@ function VoiceInterface() {
             </MainIcon>
           )}
           <Button disabled={processing} mt="1rem">
-            {processing ? "Listening..." : "Touch HERE to Speak"}
+            {processing
+              ? intl.formatMessage({
+                  id: "voice.label.listening",
+                  defaultMessage: "Listening...",
+                })
+              : intl.formatMessage({
+                  id: "voice.label.here",
+                  defaultMessage: "Touch HERE to Speak",
+                })}
           </Button>
         </a>
-        <P italic>{command ? command : "touch to speak a new command"}</P>
+        <P italic>
+          {command
+            ? command
+            : intl.formatMessage({
+                id: "voice.label.touch",
+                defaultMessage: "touch to speak a new command",
+              })}
+        </P>
         <P>{response ? response : "..."}</P>
       </Column>
     </Container>

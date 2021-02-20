@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { MdClose, MdAdd } from "react-icons/md";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import { setAuthorizationToken } from "../libs/utils";
 import { useAuth, useAuthUpdate } from "../AuthContext";
@@ -60,6 +61,7 @@ function NewTriggerModal() {
   let getUiState = useUiState();
   const newTriggerInput = useRef();
   const newResponse = useRef();
+  const intl = useIntl();
 
   const addTriggerToArray = () => {
     setNewTriggerArray([...newTriggerArray, newTriggerInput.current.value]);
@@ -70,7 +72,11 @@ function NewTriggerModal() {
     e.preventDefault();
     if (newTriggerArray.length === 0) {
       toast.error(
-        'Generate triggers by filling the word trigger input and then press the "+" button.',
+        intl.formatMessage({
+          id: "newtrigger.toast.fillplus",
+          defaultMessage:
+            'Generate triggers by filling the word trigger input and then press the "+" button.',
+        }),
         {
           position: "top-center",
           autoClose: 10000,
@@ -80,7 +86,11 @@ function NewTriggerModal() {
     }
     if (e.target.response.value === "") {
       toast.error(
-        "Please enter a response to be given when all the triggers are found.",
+        intl.formatMessage({
+          id: "newtrigger.toast.fillresponse",
+          defaultMessage:
+            "Please enter a response to be given when all the triggers are found.",
+        }),
         {
           position: "top-center",
           autoClose: 10000,
@@ -104,20 +114,33 @@ function NewTriggerModal() {
           triggersList: [...prevAuth.triggersList, res.data.data],
         };
       });
-      toast.success("Trigger created successfully!", {
-        position: "top-center",
-        autoClose: 5000,
-      });
+      toast.success(
+        intl.formatMessage({
+          id: "newtrigger.toast.completed",
+          defaultMessage: "Trigger created successfully!",
+        }),
+        {
+          position: "top-center",
+          autoClose: 5000,
+        }
+      );
     } catch (err) {
       console.error(err);
       if (err.response && err.response.status === 401) {
         updateAuthUser({ username: "", user_id: "", triggersList: [] });
         setAuthorizationToken(false);
         updateUiState((prevState) => ({ ...prevState, modalIsOpen: false }));
-        toast.error("Your authorization has expired, please login again.", {
-          position: "top-center",
-          autoClose: 10000,
-        });
+        toast.error(
+          intl.formatMessage({
+            id: "newtrigger.toast.kicked",
+            defaultMessage:
+              "Your authorization has expired, please login again.",
+          }),
+          {
+            position: "top-center",
+            autoClose: 10000,
+          }
+        );
       }
     }
   };
@@ -129,7 +152,10 @@ function NewTriggerModal() {
         updateUiState((prevState) => ({ ...prevState, modalIsOpen: false }))
       }
       shouldCloseOnOverlayClick={false}
-      contentLabel="Add new trigger"
+      contentLabel={intl.formatMessage({
+        id: "newtrigger.modal.label",
+        defaultMessage: "Add new trigger",
+      })}
     >
       <ColumnModal>
         <CloseModal
@@ -139,13 +165,26 @@ function NewTriggerModal() {
         >
           <MdClose />
         </CloseModal>
-        <Header>Add new trigger</Header>
+        <Header>
+          <FormattedMessage
+            id="newtrigger.header"
+            defaultMessage="Add new trigger"
+          />
+        </Header>
         <p>
-          If your spoken phrase matchs ALL triggers then the response will be
-          read out loud.
+          <FormattedMessage
+            id="newtrigger.description"
+            defaultMessage="If your spoken phrase matchs ALL triggers then the response will be
+            read out loud."
+          />
         </p>
         <Form onSubmit={handleSubmit}>
-          <label htmlFor="new_trigger">Add another word trigger </label>
+          <label htmlFor="new_trigger">
+            <FormattedMessage
+              id="newtrigger.label.addtrigger"
+              defaultMessage="Add another word trigger"
+            />
+          </label>
           <InputWithAction>
             <Input
               type="text"
@@ -158,12 +197,27 @@ function NewTriggerModal() {
               <MdAdd />
             </div>
           </InputWithAction>
-          <SmallP>List of trigger words: </SmallP>
+          <SmallP>
+            <FormattedMessage
+              id="newtrigger.list"
+              defaultMessage="List of trigger words:"
+            />
+          </SmallP>
           <TriggerTags triggersArray={newTriggerArray} />
           <Hr />
-          <label htmlFor="response">Response to read outloud</label>
+          <label htmlFor="response">
+            <FormattedMessage
+              id="newtrigger.label.response"
+              defaultMessage="Response to read outloud"
+            />
+          </label>
           <Input type="text" name="response" id="response" ref={newResponse} />
-          <Button type="submit">Save Trigger</Button>
+          <Button type="submit">
+            <FormattedMessage
+              id="newtrigger.label.submit"
+              defaultMessage="Save Trigger"
+            />
+          </Button>
         </Form>
       </ColumnModal>
     </Modal>

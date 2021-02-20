@@ -1,4 +1,6 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
+
 import Pill from "./utils/Pill";
 import styled from "styled-components";
 import P from "../components/styled/P";
@@ -18,7 +20,12 @@ function TriggerTags({ triggersArray }) {
           triggersArray.map((trigger) => <Pill text={trigger} />)
         )
       ) : (
-        <P>Add new words as triggers</P>
+        <P>
+          <FormattedMessage
+            id="tags.empty"
+            defaultMessage="Add new words as triggers"
+          />
+        </P>
       )}
     </Tags>
   );
