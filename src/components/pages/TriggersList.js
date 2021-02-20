@@ -31,6 +31,8 @@ function TriggersList() {
               have fun!"
             />
           </P>
+          <NewTriggerModal />
+          <FAB />
         </Column>
       </Container>
     );

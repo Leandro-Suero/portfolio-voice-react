@@ -2,15 +2,8 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 
 import Pill from "./utils/Pill";
-import styled from "styled-components";
 import P from "../components/styled/P";
-
-const Tags = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-`;
+import Tags from "../components/styled/Tags";
 
 function TriggerTags({ triggersArray }) {
   return (

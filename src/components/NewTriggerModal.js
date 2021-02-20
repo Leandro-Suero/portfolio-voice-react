@@ -15,6 +15,10 @@ import FixedDiv from "../components/styled/FixedDiv";
 import Input from "../components/styled/Input";
 import Form from "../components/styled/Form";
 import Button from "../components/styled/Button";
+import SmallP from "../components/styled/SmallP";
+import Header from "../components/styled/Header";
+import Hr from "../components/styled/Hr";
+import InputWithAction from "../components/styled/InputWithAction";
 
 const ColumnModal = styled(Column)`
   gap: 1rem;
@@ -22,35 +26,6 @@ const ColumnModal = styled(Column)`
 `;
 const CloseModal = styled(FixedDiv)`
   top: 1.5rem;
-`;
-const SmallP = styled.p`
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-`;
-const Header = styled.h2`
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-`;
-const Hr = styled.hr`
-  margin: 1.5rem 0;
-`;
-const InputWithAction = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  gap: 0.5rem;
-  flex-basis: auto;
-  & > div {
-    font-size: 2rem;
-    background-color: ${(props) => props.theme.color.accent};
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: -0.2rem;
-  }
 `;
 
 function NewTriggerModal() {

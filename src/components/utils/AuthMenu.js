@@ -1,71 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdAccountCircle, MdList, MdExitToApp, MdClose } from "react-icons/md";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { toast } from "react-toastify";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { useAuth, useAuthUpdate } from "../../AuthContext";
 import { setAuthorizationToken } from "../../libs/utils";
+import StyledImg from "../styled/StyledImg";
 import FixedDiv from "../styled/FixedDiv";
+import Nav from "../styled/Nav";
+import Ul from "../styled/Ul";
+import Li from "../styled/Li";
 
-const FadeIn = keyframes`
-  0%{
-    opacity: 0
-  }
-  100%{
-    opacity: 1
-  }
-`;
-
-const Nav = styled.nav`
-  position: fixed;
-  top: 5rem;
-  right: 0.5rem;
-  animation: 0.4s ${FadeIn} ease-in;
-`;
-const Ul = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  list-style: none;
-  padding: 1rem 2rem;
-  background-color: ${(props) => props.theme.color.backgroundLight};
-  z-index: 100;
-`;
-const Li = styled.li`
-  font-size: 1.25rem;
-  vertical-align: middle;
-  display: inline-block;
-  color: ${(props) => props.theme.color.background};
-  & > a {
-    color: ${(props) => props.theme.color.background};
-    text-decoration: none;
-  }
-  & > a svg,
-  & > svg {
-    position: relative;
-    top: 0.2rem;
-  }
-`;
 const AuthDiv = styled(FixedDiv)`
   top: 1.5rem;
   background-color: ${(props) => props.theme.color.backgroundLight};
   color: ${(props) => props.theme.color.background};
-`;
-const StyledImg = styled.img`
-  width: 2.5rem;
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  margin: 0;
-  border-radius: 50%;
-  background-color: ${(props) => props.theme.color.accent};
-  color: ${(props) => props.theme.color.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.75);
 `;
 
 function Auth() {
