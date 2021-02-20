@@ -83,64 +83,59 @@ function Login() {
   return (
     <>
       <BackButton />
-      <Container>
-        <Column>
+      <Column>
+        <P>
+          <FormattedMessage
+            id="login.welcome"
+            defaultMessage="Log in to be able to create and sync your own triggers."
+          />
+        </P>
+
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor="username">
+            <FormattedMessage
+              id="login.label.username"
+              defaultMessage="Username"
+            />
+          </label>
+          <Input
+            type="text"
+            name="username"
+            id="username"
+            onChange={handleUsernameChange}
+            autoFocus
+          />
+          <label htmlFor="password">
+            <FormattedMessage
+              id="login.label.password"
+              defaultMessage="Password"
+            />
+          </label>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            onChange={handlePasswordChange}
+          />
+          <Button type="submit" mt="0.5rem">
+            <FormattedMessage id="login.label.submit" defaultMessage="Log in" />
+          </Button>
+        </Form>
+        <div>
           <P>
             <FormattedMessage
-              id="login.welcome"
-              defaultMessage="Log in to be able to create and sync your own triggers."
+              id="login.noaccount"
+              defaultMessage="If you don't have an account yet:"
             />
           </P>
-
-          <Form onSubmit={handleSubmit}>
-            <label htmlFor="username">
-              <FormattedMessage
-                id="login.label.username"
-                defaultMessage="Username"
-              />
-            </label>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              onChange={handleUsernameChange}
-              autoFocus
+          <StyledLink to="/register">
+            <FormattedMessage
+              id="login.label.register"
+              defaultMessage="Register"
             />
-            <label htmlFor="password">
-              <FormattedMessage
-                id="login.label.password"
-                defaultMessage="Password"
-              />
-            </label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              onChange={handlePasswordChange}
-            />
-            <Button type="submit" mt="0.5rem">
-              <FormattedMessage
-                id="login.label.submit"
-                defaultMessage="Log in"
-              />
-            </Button>
-          </Form>
-          <div>
-            <P>
-              <FormattedMessage
-                id="login.noaccount"
-                defaultMessage="If you don't have an account yet:"
-              />
-            </P>
-            <StyledLink to="/register">
-              <FormattedMessage
-                id="login.label.register"
-                defaultMessage="Register"
-              />
-            </StyledLink>
-          </div>
-        </Column>
-      </Container>
+          </StyledLink>
+        </div>
+      </Column>
     </>
   );
 }

@@ -4,6 +4,7 @@ const GlobalStyle = createGlobalStyle`
 html {
   height: 100%;
   font-family: ${(props) => props.theme.font};
+  background-color: ${(props) => props.theme.color.backgroundLight};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

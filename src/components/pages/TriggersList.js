@@ -1,6 +1,6 @@
 import React from "react";
 import TriggerItem from "../TriggerItem";
-import { useAuth, useAuthUpdate } from "../../AuthContext";
+import { useAuth } from "../../AuthContext";
 import BackButton from "../utils/BackButton";
 import FAB from "../utils/Fab";
 import NewTriggerModal from "../NewTriggerModal";
@@ -21,37 +21,33 @@ function TriggersList() {
 
   if (authUser.triggersList.length === 0)
     return (
-      <Container>
-        <Column>
-          <BackButton />
-          <P>
-            <FormattedMessage
-              id="triggerlist.empty"
-              defaultMessage="There isn't any personalized trigger yet. Go ahead and create one,
-              have fun!"
-            />
-          </P>
-          <NewTriggerModal />
-          <FAB />
-        </Column>
-      </Container>
-    );
-  return (
-    <Container>
-      <ColumnTriggers>
+      <Column>
         <BackButton />
-        {authUser.triggersList.map((trigger) => (
-          <TriggerItem
-            id={trigger.id}
-            triggers={trigger.triggers.triggers}
-            response={trigger.response}
-            key={trigger.id}
+        <P>
+          <FormattedMessage
+            id="triggerlist.empty"
+            defaultMessage="There isn't any personalized trigger yet. Go ahead and create one,
+              have fun!"
           />
-        ))}
+        </P>
         <NewTriggerModal />
         <FAB />
-      </ColumnTriggers>
-    </Container>
+      </Column>
+    );
+  return (
+    <ColumnTriggers>
+      <BackButton />
+      {authUser.triggersList.map((trigger) => (
+        <TriggerItem
+          id={trigger.id}
+          triggers={trigger.triggers.triggers}
+          response={trigger.response}
+          key={trigger.id}
+        />
+      ))}
+      <NewTriggerModal />
+      <FAB />
+    </ColumnTriggers>
   );
 }
 

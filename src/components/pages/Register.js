@@ -102,75 +102,73 @@ function Register() {
   return (
     <>
       <BackButton />
-      <Container>
-        <Column>
+      <Column>
+        <P>
+          <FormattedMessage
+            id="register.welcome"
+            defaultMessage="Create an account to generate and sync your own triggers."
+          />
+        </P>
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor="username">
+            <FormattedMessage
+              id="register.label.username"
+              defaultMessage="Username"
+            />
+          </label>
+          <Input
+            type="text"
+            name="username"
+            id="username"
+            onChange={handleUsernameChange}
+            autoFocus
+          />
+          <label htmlFor="password">
+            <FormattedMessage
+              id="register.label.password"
+              defaultMessage="Password"
+            />
+          </label>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            onChange={handlePasswordChange}
+          />
+          <label htmlFor="password2">
+            <FormattedMessage
+              id="register.label.password2"
+              defaultMessage="Password"
+            />
+          </label>
+          <Input
+            type="password"
+            name="password2"
+            id="password2"
+            onChange={handlePassword2Change}
+          />
+          <Button type="submit" mt="0.5rem">
+            <FormattedMessage
+              id="register.label.submit"
+              defaultMessage="Register"
+            />
+          </Button>
+        </Form>
+        <div>
           <P>
             <FormattedMessage
-              id="register.welcome"
-              defaultMessage="Create an account to generate and sync your own triggers."
+              id="login.haveaccount"
+              defaultMessage="Do you already have an account?"
             />
           </P>
-          <Form onSubmit={handleSubmit}>
-            <label htmlFor="username">
-              <FormattedMessage
-                id="register.label.username"
-                defaultMessage="Username"
-              />
-            </label>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              onChange={handleUsernameChange}
-              autoFocus
+          <StyledLink to="/login">
+            <FormattedMessage
+              id="register.label.login"
+              defaultMessage="Log in"
             />
-            <label htmlFor="password">
-              <FormattedMessage
-                id="register.label.password"
-                defaultMessage="Password"
-              />
-            </label>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              onChange={handlePasswordChange}
-            />
-            <label htmlFor="password2">
-              <FormattedMessage
-                id="register.label.password2"
-                defaultMessage="Password"
-              />
-            </label>
-            <Input
-              type="password"
-              name="password2"
-              id="password2"
-              onChange={handlePassword2Change}
-            />
-            <Button type="submit" mt="0.5rem">
-              <FormattedMessage
-                id="register.label.submit"
-                defaultMessage="Register"
-              />
-            </Button>
-          </Form>
-          <div>
-            <P>
-              <FormattedMessage
-                id="login.haveaccount"
-                defaultMessage="Do you already have an account?"
-              />
-            </P>
-            <StyledLink to="/login">
-              <FormattedMessage
-                id="register.label.login"
-                defaultMessage="Log in"
-              />
-            </StyledLink>
-          </div>
-        </Column>
-      </Container>
+          </StyledLink>
+        </div>
+      </Column>
     </>
   );
 }

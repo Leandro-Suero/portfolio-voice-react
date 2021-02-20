@@ -5,7 +5,6 @@ import { useIntl } from "react-intl";
 
 import * as VoiceAssistance from "../libs/VoiceAssistance";
 import { useAuth } from "../AuthContext";
-import Container from "../components/styled/Container";
 import Column from "../components/styled/Column";
 import P from "../components/styled/P";
 import Button from "../components/styled/Button";
@@ -54,41 +53,39 @@ function VoiceInterface() {
   };
 
   return (
-    <Container>
-      <Column>
-        <a onClick={handleVoice}>
-          {processing ? (
-            <MainIcon active>
-              <HiMicrophone />
-            </MainIcon>
-          ) : (
-            <MainIcon>
-              <MdTouchApp />
-            </MainIcon>
-          )}
-          <Button disabled={processing} mt="1rem">
-            {processing
-              ? intl.formatMessage({
-                  id: "voice.label.listening",
-                  defaultMessage: "Listening...",
-                })
-              : intl.formatMessage({
-                  id: "voice.label.here",
-                  defaultMessage: "Touch HERE to Speak",
-                })}
-          </Button>
-        </a>
-        <P italic>
-          {command
-            ? command
+    <Column>
+      <a onClick={handleVoice}>
+        {processing ? (
+          <MainIcon active>
+            <HiMicrophone />
+          </MainIcon>
+        ) : (
+          <MainIcon>
+            <MdTouchApp />
+          </MainIcon>
+        )}
+        <Button disabled={processing} mt="1rem">
+          {processing
+            ? intl.formatMessage({
+                id: "voice.label.listening",
+                defaultMessage: "Listening...",
+              })
             : intl.formatMessage({
-                id: "voice.label.touch",
-                defaultMessage: "touch to speak a new command",
+                id: "voice.label.here",
+                defaultMessage: "Touch HERE to Speak",
               })}
-        </P>
-        <P>{response ? response : "..."}</P>
-      </Column>
-    </Container>
+        </Button>
+      </a>
+      <P italic>
+        {command
+          ? command
+          : intl.formatMessage({
+              id: "voice.label.touch",
+              defaultMessage: "touch to speak a new command",
+            })}
+      </P>
+      <P>{response ? response : "..."}</P>
+    </Column>
   );
 }
 
