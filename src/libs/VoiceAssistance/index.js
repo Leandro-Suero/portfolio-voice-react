@@ -8,14 +8,12 @@ export const processInstruction = (message, triggersList) => {
   speech.rate = 1;
   speech.pitch = 1;
   speech.lang = "es";
-  console.log(message);
+  console.log("message:", message);
   const currentCommand = commandsCtrl.evaluateCommands(message);
-  console.log(currentCommand);
+  console.log("command:", currentCommand);
   if (currentCommand) {
     speech.text = commandsCtrl.executeCommand(currentCommand, message);
-    console.log(speech.text);
   } else {
-    console.log("trigger array:", triggersList);
     const currentTriggerResponse = triggersCtrl.evaluateTriggers(
       message,
       triggersList
@@ -25,6 +23,6 @@ export const processInstruction = (message, triggersList) => {
     }
   }
   window.speechSynthesis.speak(speech);
-
+  console.log("response:", speech.text);
   return speech.text;
 };
