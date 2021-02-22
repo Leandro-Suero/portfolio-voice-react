@@ -38,5 +38,14 @@
   "tags.empty": "Agrega nuevas palabras como disparadores",
   "voice.label.listening": "Escuchando...",
   "voice.label.here": "Presiona AQUI para hablar",
-  "voice.label.touch": "presiona para decir un nuevo comando"
+  "voice.label.touch": "presiona para decir un nuevo comando",
+  "speech.default.message": "Tenés una papa en la boca, ¡no se te entiende nada!",
+  "speech.commands.date": "fecha",
+  "speech.commands.hour": "hora",
+  "speech.commands.weather": "clima",
+  "speech.commands.joke": "chiste",
+  "speech.commands.hour.response": "Llegó la hora de las boludeces, aparentemente",
+  "speech.commands.weather.response": "¿Para qué querés saber si no salís de la casa?",
+  "speech.commands.joke.response": "¿Acaso me viste cara de payaso?",
+  "speech.commands.default.response": "Comando no reconocido"
 }

@@ -38,5 +38,14 @@
   "tags.empty": "Add new words as triggers",
   "voice.label.listening": "Listening...",
   "voice.label.here": "Touch HERE to Speak",
-  "voice.label.touch": "touch to speak a new command"
+  "voice.label.touch": "touch to speak a new command",
+  "speech.default.message": "What did you say?",
+  "speech.commands.date": "date",
+  "speech.commands.hour": "hour",
+  "speech.commands.weather": "weather",
+  "speech.commands.joke": "joke",
+  "speech.commands.hour.response": "It's time to waste time, apparently",
+  "speech.commands.weather.response": "why do you wanna know? You never leave the house",
+  "speech.commands.joke.response": "Do I look like a clown?",
+  "speech.commands.default.response": "Unknown voice command"
 }

@@ -1,14 +1,27 @@
-const commands_list = [
-  "fecha",
-  "hora",
-  "tiempo",
-  "clima",
-  "decime",
-  "chiste",
-  "chistecito",
-];
-export const evaluateCommands = (sentence) => {
+const getCommandList = (intl) => {
+  return [
+    intl.formatMessage({
+      id: "speech.commands.date",
+      defaultMessage: "date",
+    }),
+    intl.formatMessage({
+      id: "speech.commands.hour",
+      defaultMessage: "hour",
+    }),
+    intl.formatMessage({
+      id: "speech.commands.weather",
+      defaultMessage: "weather",
+    }),
+    intl.formatMessage({
+      id: "speech.commands.joke",
+      defaultMessage: "joke",
+    }),
+  ];
+};
+
+export const evaluateCommands = (sentence, intl) => {
   let command = false;
+  let commands_list = getCommandList(intl);
   commands_list.some((comm) => {
     if (sentence.toLowerCase().includes(comm)) {
       command = comm;
@@ -18,25 +31,38 @@ export const evaluateCommands = (sentence) => {
   return command;
 };
 
-export const executeCommand = (command, phrase) => {
+export const executeCommand = (command, phrase, intl, language) => {
+  console.log(command, language);
   switch (command) {
     case "fecha":
+    case "date":
       let currentDate = new Date();
-      return new Intl.DateTimeFormat("es-ES", {
+      return new Intl.DateTimeFormat(language, {
         dateStyle: "full",
         timeStyle: "short",
       }).format(currentDate);
     case "hora":
-      return "Llegó la hora de las boludeces, aparentemente";
-    case "tiempo":
+    case "hour":
+      return intl.formatMessage({
+        id: "speech.commands.hour.response",
+        defaultMessage: "hour",
+      });
     case "clima":
-      return "¿Para qué querés saber si no salís de la casa?";
-    case "decime":
-      return "Mira vos que chusma que resultaste ser";
+    case "weather":
+      return intl.formatMessage({
+        id: "speech.commands.weather.response",
+        defaultMessage: "weather",
+      });
     case "chiste":
-    case "chistecito":
-      return "¿Acaso me viste cara de payaso?";
+    case "joke":
+      return intl.formatMessage({
+        id: "speech.commands.joke.response",
+        defaultMessage: "joke",
+      });
     default:
-      return "Comando no reconocido";
+      return intl.formatMessage({
+        id: "speech.commands.default.response",
+        defaultMessage: "joke",
+      });
   }
 };

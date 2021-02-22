@@ -5,6 +5,7 @@ export const useVoiceInterface = ({
   setProcessing,
   setCommand,
   setResponse,
+  i18n,
 }) => {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -17,7 +18,11 @@ export const useVoiceInterface = ({
     const confidence = event.results[current][0].confidence;
     setCommand(transcript);
 
-    const resp = VoiceAssistance.processInstruction(transcript, triggersList);
+    const resp = VoiceAssistance.processInstruction(
+      transcript,
+      triggersList,
+      i18n
+    );
     setResponse(resp);
   };
 

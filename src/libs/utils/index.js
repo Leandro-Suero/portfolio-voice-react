@@ -9,3 +9,7 @@ export function setAuthorizationToken(token) {
     localStorage.removeItem("voice-token");
   }
 }
+
+export function getLanguageWithoutRegionCode() {
+  return navigator.language.split(/[-_]/)[0];
+}

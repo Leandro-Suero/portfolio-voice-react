@@ -4,6 +4,7 @@ import { HiMicrophone } from "react-icons/hi";
 import { useIntl } from "react-intl";
 
 import { useVoiceInterface } from "../hooks/useVoiceInterface";
+import { getLanguageWithoutRegionCode } from "../libs/utils";
 import { useAuth } from "../AuthContext";
 import Column from "../components/styled/Column";
 import P from "../components/styled/P";
@@ -16,12 +17,14 @@ function VoiceInterface() {
   const [processing, setProcessing] = useState(false);
   const getAuthUser = useAuth();
   const intl = useIntl();
+  const language = getLanguageWithoutRegionCode();
 
   let { recognition } = useVoiceInterface({
     triggersList: getAuthUser.triggersList,
     setProcessing,
     setCommand,
     setResponse,
+    i18n: { intl, language },
   });
 
   const handleVoice = (e) => {
