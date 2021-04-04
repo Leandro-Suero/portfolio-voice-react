@@ -47,5 +47,10 @@
   "speech.commands.hour.response": "It's time to waste time, apparently",
   "speech.commands.weather.response": "why do you wanna know? You never leave the house",
   "speech.commands.joke.response": "Do I look like a clown?",
-  "speech.commands.default.response": "Unknown voice command"
+  "speech.commands.default.response": "Unknown voice command",
+  "tour.step1.voice": "Press here to start an interaction. After the icon turns green you can speak a command to the assistant.",
+  "tour.step2.transcript": "This is the transcript of the spoken command, as the assistant understood it. Be clear in your instructions.",
+  "tour.step3.response": "This is the response given by your voice assistant.",
+  "tour.step4.fab": "This is where you can create new triggers for commands with your own predefined responses. You need to be logged in for this.",
+  "tour.step5.auth": "Here you can login and manage your custom triggers."
 }

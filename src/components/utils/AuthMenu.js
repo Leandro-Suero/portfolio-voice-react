@@ -93,7 +93,7 @@ function Auth() {
         </div>
       ) : (
         <Link to="/login">
-          <AuthDiv>
+          <AuthDiv className="auth-menu">
             <MdAccountCircle />
           </AuthDiv>
         </Link>

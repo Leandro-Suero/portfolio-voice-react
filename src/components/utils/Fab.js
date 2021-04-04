@@ -28,7 +28,7 @@ function FAB() {
   };
 
   return (
-    <FabDiv onClick={(e) => addNewTrigger()}>
+    <FabDiv className="fab-menu" onClick={(e) => addNewTrigger()}>
       <MdPlaylistAdd />
     </FabDiv>
   );

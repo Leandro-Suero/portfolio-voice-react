@@ -47,5 +47,10 @@
   "speech.commands.hour.response": "Llegó la hora de las boludeces, aparentemente",
   "speech.commands.weather.response": "¿Para qué querés saber si no salís de la casa?",
   "speech.commands.joke.response": "¿Acaso me viste cara de payaso?",
-  "speech.commands.default.response": "Comando no reconocido"
+  "speech.commands.default.response": "Comando no reconocido",
+  "tour.step1.voice": "Presiona aquí para comenzar a interactuar. Luego de que el ícono se ponga verde puedes expresar tu comando de voz.",
+  "tour.step2.transcript": "Esta es la transcripción del comando escuchado por el asistente. Sea claro en sus instrucciones.",
+  "tour.step3.response": "Esta es la respuesta dada por su asistente de voz.",
+  "tour.step4.fab": "Aquí es donde puede crear nuevos disparadores de voz para sus comandos y las respectivas respuestas. Necesitas iniciar sesión para esto.",
+  "tour.step5.auth": "Aquí puede iniciar sesión y manejar sus disparadores y respuestas propias."
 }

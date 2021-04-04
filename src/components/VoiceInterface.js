@@ -34,7 +34,7 @@ function VoiceInterface() {
 
   return (
     <Column>
-      <a onClick={handleVoice}>
+      <a onClick={handleVoice} className="voice-interface">
         {processing ? (
           <MainIcon active>
             <HiMicrophone />
@@ -56,7 +56,7 @@ function VoiceInterface() {
               })}
         </Button>
       </a>
-      <P italic>
+      <P italic className="command-transcript">
         {command
           ? command
           : intl.formatMessage({
@@ -64,7 +64,7 @@ function VoiceInterface() {
               defaultMessage: "touch to speak a new command",
             })}
       </P>
-      <P>{response ? response : "..."}</P>
+      <P className="command-response">{response ? response : "..."}</P>
     </Column>
   );
 }
