@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# VOICE ASSISTANT - [View Demo](https://my-voice-assistant.netlify.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Image of the website](https://leandro-suero.github.io/img/Assistant.png)
+
+## Backend service for this website is at this [GitHub repo](https://github.com/Leandro-Suero/portfolio-voice-node)
 
 ## Available Scripts
 
@@ -8,26 +10,17 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.<br />
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
 
@@ -39,32 +32,23 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Environment variables
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- REACT_APP_API_BASEURL, to point to the URL of the backend API. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Resources
 
-### Code Splitting
+1. [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+2. [Styled Components](https://styled-components.com/) for styling of the app.
+7. [React Router Dom](https://www.npmjs.com/package/react-router-dom) to handle routing for the home, login and register pages.
+8. [React Testing Library](https://www.npmjs.com/package/@testing-library/react) to handle testing.
+9. [JWT Decode](https://www.npmjs.com/package/jwt-decode) to decode the base64 encoded JWT used for authentication.
+10. [React Icons](https://react-icons.github.io/react-icons/) to display the different icons used in the app.
+11. [React Intl](https://www.npmjs.com/package/react-intl) for translations of the user facing sentences.
+12. [React Modal](https://www.npmjs.com/package/react-modal) to launch when generating a new voice trigger.
+13. [React Toastify](https://www.npmjs.com/package/react-toastify) to inform the results of an interaction with the app.
+14. [React Tour](https://reactour.js.org/) to generate, on first visit of the app, a tour explaining the interface and functionalities.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Code released under the MIT license.
